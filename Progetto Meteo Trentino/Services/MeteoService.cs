@@ -6,10 +6,10 @@ using System.Text.Json;
 
 namespace Progetto_Meteo_Trentino.Services
 {
-    public static class MeteoService
+    public  class MeteoService
     {
        
-        public static async Task<Bollettino> Meteo(string localita) {
+        public  async Task<Bollettino> Meteo(string localita) {
 
 
             string url = $"https://www.meteotrentino.it/protcivtn-meteo/api/front/previsioneOpenDataLocalita?localita={localita}";

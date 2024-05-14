@@ -5,11 +5,15 @@ namespace Progetto_Meteo_Trentino.Services
     public class SoapService
     {
 
+        private readonly MeteoService _meteoService;
 
+        public SoapService() { 
+            _meteoService = new MeteoService();
+        }
 
         public List<Previsione> previsioni(string localita, DateTime data)
         {
-            Bollettino bollettino = MeteoService.Meteo(localita).Result;
+            Bollettino bollettino = _meteoService.Meteo(localita).Result;
             if(bollettino != null)
             {
                 List<Previsione> previsioni = bollettino.previsioni

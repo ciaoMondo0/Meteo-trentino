@@ -27,10 +27,29 @@ namespace Progetto_Meteo_Trentino.Controllers
             }
             return Ok(bollettino);
         }*/
+
+
+        private readonly MeteoService _meteoService;
+
+        public MeteoController()
+        {
+
+            _meteoService = new MeteoService();
+        }
+
+
+        [HttpGet]
+        public IActionResult RichiestaCitta()
+        {
+            var viewModel = new RichiestaCitta();
+            return View(viewModel);
+        }
+
+
         [HttpGet("{localita}")]
         public async Task<IActionResult> VisualizzaMeteo(string localita)
         {
-            var bollettino = await MeteoService.Meteo(localita);
+            var bollettino = await this._meteoService.Meteo(localita);
             if (bollettino == null)
             {
                 return NotFound();
@@ -52,15 +71,18 @@ namespace Progetto_Meteo_Trentino.Controllers
 
 
         [HttpPost]
-        
-          public IActionResult MeteoCitta(RichiestaCittà citta)
+
+        public IActionResult RichiestaCitta([FromForm] RichiestaCitta citta)
         {
             if (ModelState.IsValid)
             {
                 return RedirectToAction("VisualizzaMeteo", "Meteo", new { localita = citta.citta });
             }
-            return View(citta);
+            return View("RichiestaCitta", citta);
         }
     }
 }
+
+
+
 

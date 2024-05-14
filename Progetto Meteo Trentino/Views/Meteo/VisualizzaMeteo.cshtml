@@ -1,29 +1,37 @@
-﻿<!DOCTYPE html>
+﻿@model Progetto_Meteo_Trentino.Views.ViewModels.BollettinoMeteoView
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Visualizzazione Meteo</title>
 </head>
 <body>
     <div>
         <div class="container">
-          
-            <form method="post" asp-action="MeteoCitta" asp-controller="Meteo">
-                <div class="container">
-                    <div class="form-group col-md-offset-3 col-md-5">
-                        <h2>Cerca la previsione del tempo in una città</h2>
-                        <label for="citta" style="font-family: Arial">Inserisci il nome della città:</label>
-              
-                        <input type="text" id="citta" name="citta" class="form-control" />
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="form-group col-md-offset-3 col-md-5">
-                        <button type="submit" class="btn btn-primary">Cerca</button>
-                    </div>
-                </div>
-            </form>
+            <h2>Dettagli Meteo per</h2>
+            <p>Data di pubblicazione: @Model.dataPubblicazione</p>
+            <p>ID Previsione: @Model.idPrevisione</p>
+            <p>Evoluzione: @Model.evoluzione</p>
+            <p>Evoluzione breve: @Model.evoluzioneBreve</p>
+            <h3>Previsioni:</h3>
+            <ul>
+                @foreach (var previsione in Model.previsioni ?? Enumerable.Empty<Previsione>())
+                {
+                    <li>Località: @previsione.localita</li>
+                    <li>Quota: @previsione.quota</li>
+                    
+                }
+            </ul>
         </div>
     </div>
+
+    <div class="container">
+
+        <div class="form-group col-md-offset-3 col-md-5">
+
+            <form method="get">
+                <button asp-controller="Meteo" asp-action="RichiestaCitta" class="btn btn-success">Return</button>
+            </form>
 </body>
 </html>
