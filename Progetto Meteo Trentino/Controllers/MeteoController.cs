@@ -61,7 +61,7 @@ namespace Progetto_Meteo_Trentino.Controllers
                 idPrevisione = bollettino.idPrevisione,
                 evoluzione = bollettino.evoluzione,
                 evoluzioneBreve = bollettino.evoluzioneBreve,
-                previsioni = bollettino.previsioni
+                previsione = bollettino.previsione
             };
 
             return View(viewModel);

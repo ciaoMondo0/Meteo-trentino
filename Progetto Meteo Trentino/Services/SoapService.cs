@@ -16,7 +16,7 @@ namespace Progetto_Meteo_Trentino.Services
             Bollettino bollettino = _meteoService.Meteo(localita).Result;
             if(bollettino != null)
             {
-                List<Previsione> previsioni = bollettino.previsioni
+                List<Previsione> previsioni = bollettino.previsione
                     .Where(p => p.giorni.Any(g => g.giorno == data))
                     .ToList();
 

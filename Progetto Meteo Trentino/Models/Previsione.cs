@@ -4,6 +4,6 @@
     {
         public string localita { get; set; }
         public int quota { get; set; }
-        public List<Giorno> giorni { get; set; }
+        public Giorno[] giorni { get; set; }
     }
 }

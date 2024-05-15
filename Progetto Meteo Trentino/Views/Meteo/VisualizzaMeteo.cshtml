@@ -16,7 +16,7 @@
             <p>Evoluzione breve: @Model.evoluzioneBreve</p>
             <h3>Previsioni:</h3>
             <ul>
-                @foreach (var previsione in Model.previsioni ?? Enumerable.Empty<Previsione>())
+                @foreach (var previsione in Model.previsione ?? Enumerable.Empty<Previsione>())
                 {
                     <li>Località: @previsione.localita</li>
                     <li>Quota: @previsione.quota</li>
