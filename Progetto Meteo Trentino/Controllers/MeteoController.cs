@@ -72,13 +72,13 @@ namespace Progetto_Meteo_Trentino.Controllers
 
         [HttpPost]
 
-        public IActionResult RichiestaCitta([FromForm] RichiestaCitta citta)
+        public IActionResult RichiestaCitta([FromForm] RichiestaCitta richiesta)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("VisualizzaMeteo", "Meteo", new { localita = citta.citta });
+                return RedirectToAction("VisualizzaMeteo", "Meteo", new { localita = richiesta.citta });
             }
-            return View("RichiestaCitta", citta);
+            return View(richiesta);
         }
     }
 }
