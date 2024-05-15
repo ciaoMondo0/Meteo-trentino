@@ -1,0 +1,42 @@
+﻿@model Progetto_Meteo_Trentino.Views.ViewModels.MeteoDelGiornoView
+@{
+    ViewData["Title"] = "MeteoDelGiorno";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Meteo del giorno</title>
+</head>
+<body>
+    <div>
+        <div class="container">
+            <h2>Dettagli Meteo per @Model.localita</h2>
+            <p>Giorno: @Model.giorno.giorno.ToShortDateString()</p>
+            <h3>Fasce:</h3>
+            <ul>
+                @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Fasce>())
+                {
+                    <li>@fascia.fascia - @fascia.fasciaPer - @fascia.fasciaOre</li>
+                }
+            </ul>
+            <h3>Dettagli:</h3>
+            <ul>
+                <li>ID Previsione Giorno: @Model.giorno.idPrevisioneGiorno</li>
+                <li>Testo Giorno: @Model.giorno.testoGiorno</li>
+                <li>Temperatura Minima Giorno: @Model.giorno.tMinGiorno</li>
+                <li>Temperatura Massima Giorno: @Model.giorno.tMaxGiorno</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="form-group col-md-offset-3 col-md-5">
+            <form method="get" asp-controller="Meteo" asp-action="RichiestaMeteoGiorno">
+                <button type="submit" class="btn btn-success">Cerca giorno</button>
+            </form>
+        
+
+</body>
+</html>

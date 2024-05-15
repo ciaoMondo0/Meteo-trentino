@@ -31,8 +31,42 @@ namespace Progetto_Meteo_Trentino.Services
             }
         }
 
+        public async Task<Giorno> MeteoDelGiorno(string localita, DateTime data)
+        {
+            var bollettino = await Meteo(localita);
+            if (bollettino != null)
+            {
+                Giorno giorno = bollettino.previsione.SelectMany(p => p.giorni).Where(g=> g.giorno.Date == data).FirstOrDefault();
+                if (giorno != null)
+                {
+                    return new Giorno
+                    {
+                        idPrevisioneGiorno = giorno.idPrevisioneGiorno,
+                        giorno = giorno.giorno,
+                        idIcona = giorno.idIcona,
+                        icona = giorno.icona,
+                        descIcona = giorno.icona,
+                        testoGiorno = giorno.testoGiorno,
+                        tMinGiorno = giorno.tMinGiorno,
+                        tMaxGiorno = giorno.tMaxGiorno,
+                        fasce = giorno.fasce
 
-      
+                    };
+                } else
+                {
+                    return null;
+                }
+                  
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
+
     }
         
     }

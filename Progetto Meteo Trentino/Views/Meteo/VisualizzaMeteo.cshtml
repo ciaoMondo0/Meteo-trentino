@@ -1,10 +1,12 @@
 ﻿@model Progetto_Meteo_Trentino.Views.ViewModels.BollettinoMeteoView
-
+@{
+    ViewData["Title"] = "VisualizzaMeteo";
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Visualizzazione Meteo</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <div>
@@ -20,18 +22,34 @@
                 {
                     <li>Località: @previsione.localita</li>
                     <li>Quota: @previsione.quota</li>
-                    
+                    <li>
+                        Giorni:
+                        <ul>
+                            @foreach (var giorno in previsione.giorni ?? Enumerable.Empty<Giorno>())
+                            {
+                                <li>
+                                    ID Previsione Giorno: @giorno.idPrevisioneGiorno<br />
+                                    Giorno: @giorno.giorno<br />
+                                    ID Icona: @giorno.idIcona<br />
+                                    Icona: @giorno.icona<br />
+                                    Descrizione Icona: @giorno.descIcona<br />
+                                    Testo Giorno: @giorno.testoGiorno<br />
+                                    Temperatura Minima Giorno: @giorno.tMinGiorno<br />
+                                    Temperatura Massima Giorno: @giorno.tMaxGiorno<br />
+                                </li>
+                            }
+                        </ul>
+                    </li>
                 }
             </ul>
         </div>
     </div>
 
     <div class="container">
-
         <div class="form-group col-md-offset-3 col-md-5">
-
-            <form method="get">
-                <button asp-controller="Meteo" asp-action="RichiestaCitta" class="btn btn-success">Return</button>
+            <form method="get" asp-controller="Meteo" asp-action="RichiestaCitta">
+                <button type="submit" class="btn btn-success">Cerca citta</button>
             </form>
+      
 </body>
 </html>
