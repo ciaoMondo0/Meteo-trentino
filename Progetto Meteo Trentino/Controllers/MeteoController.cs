@@ -17,17 +17,7 @@ namespace Progetto_Meteo_Trentino.Controllers
     [ApiController]
     public class MeteoController : Controller
     {
-        /*
-        [HttpGet("{localita}")]
-        public async Task<IActionResult> getMeteo(string localita)
-        {
-            var bollettino = await MeteoService.Meteo(localita);
-            if (bollettino == null)
-            {
-                return NotFound();
-            }
-            return Ok(bollettino);
-        }*/
+       
 
 
         private readonly MeteoService _meteoService;
@@ -115,9 +105,10 @@ namespace Progetto_Meteo_Trentino.Controllers
         {
             if(ModelState.IsValid)
             {
+                string formattedDate = richiesta.giorno.ToString("yyyy-MM-dd");
 
-                
-                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.citta, giorno = richiesta.giorno });
+
+                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.citta, giorno = formattedDate});
             }
             return View(richiesta);
         }
