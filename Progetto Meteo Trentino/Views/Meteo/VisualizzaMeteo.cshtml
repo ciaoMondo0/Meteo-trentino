@@ -1,7 +1,8 @@
-﻿@model Progetto_Meteo_Trentino.Views.ViewModels.BollettinoMeteoView
+﻿@model Progetto_Meteo_Trentino.Views.ViewModels.PrevisioneLuogoView
 @{
-    ViewData["Title"] = "VisualizzaMeteo";
+    ViewData["Title"] = "Dettagli Meteo";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,45 +12,29 @@
 <body>
     <div>
         <div class="container">
-            <h2>Dettagli Meteo per</h2>
-            <p>Data di pubblicazione: @Model.dataPubblicazione</p>
-            <p>ID Previsione: @Model.idPrevisione</p>
-            <p>Evoluzione: @Model.evoluzione</p>
-            <p>Evoluzione breve: @Model.evoluzioneBreve</p>
+            <h2>Dettagli Meteo per @Model.localita</h2>
+            <p>Quota: @Model.quota</p>
             <h3>Previsioni:</h3>
             <ul>
-                @foreach (var previsione in Model.previsione ?? Enumerable.Empty<Previsione>())
+                @foreach (var giorno in Model.giorni ?? Enumerable.Empty<Giorno>())
                 {
-                    <li>Località: @previsione.localita</li>
-                    <li>Quota: @previsione.quota</li>
                     <li>
-                        Giorni:
-                        <ul>
-                            @foreach (var giorno in previsione.giorni ?? Enumerable.Empty<Giorno>())
-                            {
-                                <li>
-                                    ID Previsione Giorno: @giorno.idPrevisioneGiorno<br />
-                                    Giorno: @giorno.giorno<br />
-                                    ID Icona: @giorno.idIcona<br />
-                                    Icona: @giorno.icona<br />
-                                    Descrizione Icona: @giorno.descIcona<br />
-                                    Testo Giorno: @giorno.testoGiorno<br />
-                                    Temperatura Minima Giorno: @giorno.tMinGiorno<br />
-                                    Temperatura Massima Giorno: @giorno.tMaxGiorno<br />
-                                </li>
-                            }
-                        </ul>
+                        <h4>@giorno.giorno</h4>
+                        <img src="@giorno.icona" alt="@giorno.descIcona" />
+                        <p>@giorno.testoGiorno</p>
+                        <p>Temperatura Minima: @giorno.tMinGiorno</p>
+                        <p>Temperatura Massima: @giorno.tMaxGiorno</p>
                     </li>
                 }
             </ul>
         </div>
     </div>
-
     <div class="container">
+
         <div class="form-group col-md-offset-3 col-md-5">
-            <form method="get" asp-controller="Meteo" asp-action="RichiestaCitta">
-                <button type="submit" class="btn btn-success">Cerca citta</button>
+            <form method="get" asp-controller="Meteo" asp-action="Index">
+                <button type="submit" class="btn btn-success">Torna indietro</button>
             </form>
-      
+
 </body>
 </html>

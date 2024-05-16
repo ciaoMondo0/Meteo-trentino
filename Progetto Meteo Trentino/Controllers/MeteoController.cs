@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 namespace Progetto_Meteo_Trentino.Controllers
 {
 
-    [Route("api/[controller]")]
-    [ApiController]
+    
     public class MeteoController : Controller
     {
        
@@ -26,6 +25,35 @@ namespace Progetto_Meteo_Trentino.Controllers
         {
 
             _meteoService = new MeteoService();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            
+            var bollettino = await _meteoService.Meteo();
+
+            if (bollettino == null)
+            {
+                return NotFound(); 
+            }
+
+           
+            var viewModel = new BollettinoMeteoView
+            {
+                fontedacitare = bollettino.fontedacitare,
+                codiceipatitolare = bollettino.codiceipatitolare,
+                nometitolare = bollettino.nometitolare,
+                codiceipaeditore = bollettino.codiceipaeditore,
+                nomeeditore = bollettino.nomeeditore,
+                dataPubblicazione = bollettino.dataPubblicazione,
+                idPrevisione = bollettino.idPrevisione,
+                evoluzione = bollettino.evoluzione,
+                evoluzioneBreve = bollettino.evoluzioneBreve
+            };
+
+           
+            return View(viewModel);
         }
 
 
@@ -68,20 +96,16 @@ namespace Progetto_Meteo_Trentino.Controllers
         [HttpGet("VisualizzaMeteo")]
         public async Task<IActionResult> VisualizzaMeteo(string localita = "/")
         {
-            var bollettino = await this._meteoService.Meteo(localita);
-            if (bollettino == null)
+            var previsione = await this._meteoService.PrevisioneLuogo(localita);
+            if (previsione == null)
             {
                 return NotFound();
             }
 
-            var viewModel = new BollettinoMeteoView
-            {
-                dataPubblicazione = bollettino.dataPubblicazione.ToString(),
-                idPrevisione = bollettino.idPrevisione,
-                evoluzione = bollettino.evoluzione,
-                evoluzioneBreve = bollettino.evoluzioneBreve,
-                previsione = bollettino.previsione
-            };
+            var viewModel = new PrevisioneLuogoView();
+            viewModel.localita = localita;
+            viewModel.quota = previsione.quota;
+            viewModel.giorni = previsione.giorni;
 
             return View(viewModel);
         }

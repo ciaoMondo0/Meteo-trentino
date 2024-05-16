@@ -10,7 +10,7 @@ namespace Progetto_Meteo_Trentino.Services
         public SoapService() { 
             _meteoService = new MeteoService();
         }
-
+        /*
         public List<Previsione> previsioni(string localita, DateTime data)
         {
             Bollettino bollettino = _meteoService.Meteo(localita).Result;
@@ -28,7 +28,7 @@ namespace Progetto_Meteo_Trentino.Services
             {
                 return null;
             }
-
-        }
+            
+        }*/
     }
 }
