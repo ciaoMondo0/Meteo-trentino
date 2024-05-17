@@ -6,6 +6,7 @@ using Progetto_Meteo_Trentino.Views.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.ServiceModel;
 using System.Threading.Tasks;
 
 
@@ -82,6 +83,7 @@ namespace Progetto_Meteo_Trentino.Controllers
 
             var viewModel = new MeteoDelGiornoView();
             viewModel.localita = localita;
+            
             viewModel.giorno = meteoGiorno;
             viewModel.fasce = meteoGiorno.fasce;
 
@@ -94,7 +96,7 @@ namespace Progetto_Meteo_Trentino.Controllers
 
 
         [HttpGet("VisualizzaMeteo")]
-        public async Task<IActionResult> VisualizzaMeteo(string localita = "/")
+        public async Task<IActionResult> VisualizzaMeteo(string localita)
         {
             var previsione = await this._meteoService.PrevisioneLuogo(localita);
             if (previsione == null)
@@ -129,10 +131,10 @@ namespace Progetto_Meteo_Trentino.Controllers
         {
             if(ModelState.IsValid)
             {
-                string formattedDate = richiesta.giorno.ToString("yyyy-MM-dd");
+                string dataFormattata = richiesta.giorno.ToString("yyyy-MM-dd");
 
 
-                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.citta, giorno = formattedDate});
+                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.citta, giorno = dataFormattata });
             }
             return View(richiesta);
         }

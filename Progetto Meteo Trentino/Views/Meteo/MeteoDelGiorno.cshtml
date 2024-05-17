@@ -11,32 +11,49 @@
 <body>
     <div>
         <div class="container">
-            <h2>Dettagli Meteo per @Model.localita</h2>
+            <h2>Meteo per @Model.localita</h2>
             <p>Giorno: @Model.giorno.giorno.ToShortDateString()</p>
+            <h3>Previsioni:</h3>
+            <ul>
+                <li>
+                    <img src="@Model.giorno.icona" alt="@Model.giorno.descIcona" />
+                   
+                    <p>@Model.giorno.testoGiorno</p>
+                    <p>Temperatura Minima: @Model.giorno.tMinGiorno</p>
+                    <p>Temperatura Massima: @Model.giorno.tMaxGiorno</p>
+                </li>
+            </ul>
             <h3>Fasce:</h3>
             <ul>
-                @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Fasce>())
+                @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
                 {
-                    <li>@fascia.fascia - @fascia.fasciaPer - @fascia.fasciaOre</li>
+                    <li>
+                       
+                        <p>Fascia Per: @fascia.fasciaPer</p>
+                        <p>Fascia Ore: @fascia.fasciaOre</p>
+                        <img src="@fascia.icona" alt="@fascia.descIcona" />
+                        <p>@fascia.descIcona</p>
+                        <p>Probabilità Precipitazioni: @fascia.descPrecProb</p>
+                        <p>Intensità Precipitazioni: @fascia.descPrecInten</p>
+                        <p>Probabilità Temporali: @fascia.descTempProb</p>
+                        <p>Intensità Vento in Quota: @fascia.descVentoIntQuota</p>
+                        <p>Direzione Vento in Quota: @fascia.descVentoDirQuota</p>
+                        <p>Intensità Vento in Valle: @fascia.descVentoIntValle</p>
+                        <p>Direzione Vento in Valle: @fascia.descVentoDirValle</p>
+                        <img src="@fascia.iconaVentoQuota" alt="Icona Vento Quota" />
+                        <p>Zero Termico: @fascia.zeroTermico</p>
+                        <p>Limite Nevicate: @fascia.limiteNevicate</p>
+                    </li>
                 }
-            </ul>
-            <h3>Dettagli:</h3>
-            <ul>
-                <li>ID Previsione Giorno: @Model.giorno.idPrevisioneGiorno</li>
-                <li>Testo Giorno: @Model.giorno.testoGiorno</li>
-                <li>Temperatura Minima Giorno: @Model.giorno.tMinGiorno</li>
-                <li>Temperatura Massima Giorno: @Model.giorno.tMaxGiorno</li>
             </ul>
         </div>
     </div>
-
     <div class="container">
-
         <div class="form-group col-md-offset-3 col-md-5">
             <form method="get" asp-controller="Meteo" asp-action="Index">
                 <button type="submit" class="btn btn-success">Torna indietro</button>
             </form>
-        
-
+        </div>
+    </div>
 </body>
 </html>
