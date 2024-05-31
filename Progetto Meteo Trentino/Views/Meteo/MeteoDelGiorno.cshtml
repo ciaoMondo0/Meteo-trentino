@@ -1,55 +1,108 @@
-﻿@model Progetto_Meteo_Trentino.Views.ViewModels.MeteoDelGiornoView
+﻿@model Progetto_Meteo_Trentino.ViewModels.MeteoDelGiornoView
 @{
-    ViewData["Title"] = "MeteoDelGiorno";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Meteo del giorno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://services.meteored.com/img/article/chatgpt-sconvolgera-anche-meteorologia-previsioni-tempo-1677596609578_768.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="container">
-            <h2>Meteo per @Model.localita</h2>
-            <p>Giorno: @Model.giorno.giorno.ToShortDateString()</p>
-            <h3>Previsioni:</h3>
-            <ul>
-                <li>
-                    <img src="@Model.giorno.icona" alt="@Model.giorno.descIcona" />
-                   
-                    <p>@Model.giorno.testoGiorno</p>
-                    <p>Temperatura Minima: @Model.giorno.tMinGiorno</p>
-                    <p>Temperatura Massima: @Model.giorno.tMaxGiorno</p>
-                </li>
-            </ul>
-            <h3>Fasce:</h3>
-            <ul>
-                @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
-                {
-                    <li>
-                       
-                        <p>Fascia Per: @fascia.fasciaPer</p>
-                        <p>Fascia Ore: @fascia.fasciaOre</p>
-                        <img src="@fascia.icona" alt="@fascia.descIcona" />
-                        <p>@fascia.descIcona</p>
-                        <p>Probabilità Precipitazioni: @fascia.descPrecProb</p>
-                        <p>Intensità Precipitazioni: @fascia.descPrecInten</p>
-                        <p>Probabilità Temporali: @fascia.descTempProb</p>
-                        <p>Intensità Vento in Quota: @fascia.descVentoIntQuota</p>
-                        <p>Direzione Vento in Quota: @fascia.descVentoDirQuota</p>
-                        <p>Intensità Vento in Valle: @fascia.descVentoIntValle</p>
-                        <p>Direzione Vento in Valle: @fascia.descVentoDirValle</p>
-                        <img src="@fascia.iconaVentoQuota" alt="Icona Vento Quota" />
-                        <p>Zero Termico: @fascia.zeroTermico</p>
-                        <p>Limite Nevicate: @fascia.limiteNevicate</p>
-                    </li>
-                }
-            </ul>
-        </div>
+    <div class="container">
+        <h2>Meteo per @Model.localita</h2>
+        <p>Giorno: @Model.giorno.giorno.ToShortDateString()</p>
+        <h3>Previsioni:</h3>
+        <table>
+            <tr>
+                <td><img src="@Model.giorno.icona" alt="@Model.giorno.descIcona" /></td>
+                <td>@Model.giorno.testoGiorno</td>
+                <td>Temperatura Minima: @Model.giorno.tMinGiorno</td>
+                <td>Temperatura Massima: @Model.giorno.tMaxGiorno</td>
+            </tr>
+        </table>
+        <h3>Fasce:</h3>
+        <table>
+            <tr>
+                <th>Fascia Per</th>
+                <th>Fascia Ore</th>
+                <th>Probabilità Precipitazioni</th>
+                <th>Intensità Precipitazioni</th>
+                <th>Probabilità Temporali</th>
+                <th>Icona Vento Quota</th>
+                <th>Intensità Vento in Quota</th>
+                <th>Direzione Vento in Quota</th>
+                <th>Intensità Vento in Valle</th>
+                <th>Direzione Vento in Valle</th>
+                <th>Zero Termico</th>
+                <th>Limite Nevicate</th>
+              
+            </tr>
+            @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
+            {
+                <tr>
+                    <td>@fascia.fasciaPer</td>
+                    <td>@fascia.fasciaOre</td>
+                    <td>@fascia.descPrecProb</td>
+                    <td>@fascia.descPrecInten</td>
+                    <td>@fascia.descTempProb</td>
+                    <td><img src="@fascia.iconaVentoQuota" alt="Icona Vento Quota" /></td>
+                    <td>@fascia.descVentoIntQuota</td>
+                    <td>@fascia.descVentoDirQuota</td>
+                    <td>@fascia.descVentoIntValle</td>
+                    <td>@fascia.descVentoDirValle</td>
+                    <td>@fascia.zeroTermico</td>
+                    <td>@fascia.limiteNevicate</td>
+                    
+                </tr>
+            }
+        </table>
     </div>
     <div class="container">
-        <div class="form-group col-md-offset-3 col-md-5">
+        <div class="form-group">
             <form method="get" asp-controller="Meteo" asp-action="Index">
                 <button type="submit" class="btn btn-success">Torna indietro</button>
             </form>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Progetto_Meteo_Trentino.Models;
 using Progetto_Meteo_Trentino.Services;
-using Progetto_Meteo_Trentino.Views.ViewModels;
+using Progetto_Meteo_Trentino.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -59,16 +59,36 @@ namespace Progetto_Meteo_Trentino.Controllers
 
 
         [HttpGet("RichiestaCitta")]
-        public IActionResult RichiestaCitta()
+        public async Task<IActionResult> RichiestaCitta()
         {
-            var viewModel = new RichiestaCitta();
+            var bollettino = await _meteoService.Meteo();
+            if (bollettino == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new RichiestaCitta
+            {
+                CittaLista = bollettino.previsione.Select(p => p.localita).Distinct().ToList()
+            };
+
             return View(viewModel);
         }
 
         [HttpGet("RichiestaMeteoGiorno")]
-        public IActionResult RichiestaMeteoGiorno()
+        public async Task<IActionResult> RichiestaMeteoGiorno()
         {
-            var viewModel = new RichiestaMeteoGiorno();
+            var bollettino = await _meteoService.Meteo();
+            if (bollettino == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new RichiestaMeteoGiorno
+            {
+                CittaLista = bollettino.previsione.Select(p => p.localita).Distinct().ToList()
+            };
+
             return View(viewModel);
         }
 
@@ -120,7 +140,7 @@ namespace Progetto_Meteo_Trentino.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("VisualizzaMeteo", "Meteo", new { localita = richiesta.citta });
+                return RedirectToAction("VisualizzaMeteo", "Meteo", new { localita = richiesta.cittaSelezionata });
             }
             return View(richiesta);
         }
@@ -134,7 +154,7 @@ namespace Progetto_Meteo_Trentino.Controllers
                 string dataFormattata = richiesta.giorno.ToString("yyyy-MM-dd");
 
 
-                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.citta, giorno = dataFormattata });
+                return RedirectToAction("MeteoDelGiorno", "Meteo", new { localita = richiesta.cittaSelezionata, giorno = dataFormattata });
             }
             return View(richiesta);
         }

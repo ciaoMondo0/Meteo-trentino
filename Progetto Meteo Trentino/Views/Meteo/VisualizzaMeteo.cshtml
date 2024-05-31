@@ -1,62 +1,120 @@
-﻿@model Progetto_Meteo_Trentino.Views.ViewModels.PrevisioneLuogoView
+﻿@model Progetto_Meteo_Trentino.ViewModels.PrevisioneLuogoView
+
 @{
-    ViewData["Title"] = "Dettagli Meteo";
+    Layout = null;
 }
-
-
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Dettagli meteo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: white;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="container">
-            <h2>Previsioni meteo per @Model.localita</h2>
-            <p>Quota: @Model.quota</p>
+    <div class="container">
+        <h2>Previsioni meteo per @Model.localita</h2>
+        <p>Quota: @Model.quota</p>
+        
+        @foreach (var giorno in Model.giorni ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Giorno>())
+        {
             <h3>Previsioni:</h3>
-            <ul>
-                @foreach (var giorno in Model.giorni ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Giorno>())
+            <table>
+                <tr>
+                    <th>Data</th>
+                    <th>Icona</th>
+                    <th>Descrizione</th>
+                    <th>Temperatura Minima</th>
+                    <th>Temperatura Massima</th>
+                </tr>
+                <tr>
+                    <td>@giorno.giorno</td>
+                    <td><img src="@giorno.icona" alt="@giorno.descIcona" /></td>
+                    <td>@giorno.descIcona</td>
+                    <td>@giorno.tMinGiorno</td>
+                    <td>@giorno.tMaxGiorno</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th>Fascia Per</th>
+                    <th>Fascia Ore</th>
+                    <th>Probabilità Precipitazioni</th>
+                    <th>Intensità Precipitazioni</th>
+                    <th>Probabilità Temporali</th>
+                    <th>Icona Vento Quota</th>
+                    <th>Intensità Vento in Quota</th>
+                    <th>Direzione Vento in Quota</th>
+                    <th>Intensità Vento in Valle</th>
+                    <th>Direzione Vento in Valle</th>
+                    <th>Zero Termico</th>
+                    <th>Limite Nevicate</th>
+                </tr>
+
+                @foreach (var fascia in giorno.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
                 {
-                    <li>
-                        <h4>@giorno.giorno</h4>
-                        <img src="@giorno.icona" alt="@giorno.descIcona" />
-                        <p>@giorno.descIcona</p>
-                        <p>@giorno.testoGiorno</p>
-                        <p>Temperatura Minima: @giorno.tMinGiorno</p>
-                        <p>Temperatura Massima: @giorno.tMaxGiorno</p>
-                        <h4>Fasce:</h4>
-                        <ul>
-                            @foreach (var fascia in giorno.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
-                            {
-                                <li>
-                                    
-                                    <p>Fascia Per: @fascia.fasciaPer</p>
-                                    <p>Fascia Ore: @fascia.fasciaOre</p>
-                                    <img src="@fascia.icona" alt="@fascia.descIcona" />
-                                    <p>@fascia.descIcona</p>
-                                    <p>Probabilità Precipitazioni: @fascia.descPrecProb</p>
-                                    <p>Intensità Precipitazioni: @fascia.descPrecInten</p>
-                                    <p>Probabilità Temporali: @fascia.descTempProb</p>
-                                    <p>Intensità Vento in Quota: @fascia.descVentoIntQuota</p>
-                                    <p>Direzione Vento in Quota: @fascia.descVentoDirQuota</p>
-                                    <p>Intensità Vento in Valle: @fascia.descVentoIntValle</p>
-                                    <p>Direzione Vento in Valle: @fascia.descVentoDirValle</p>
-                                    <img src ="@fascia.iconaVentoQuota" />
-                                    <p>Zero Termico: @fascia.zeroTermico</p>
-                                    <p>Limite Nevicate: @fascia.limiteNevicate</p>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+                    <tr>
+                        <td>@fascia.fasciaPer</td>
+                        <td>@fascia.fasciaOre</td>
+                        <td>@fascia.descPrecProb</td>
+                        <td>@fascia.descPrecInten</td>
+                        <td>@fascia.descTempProb</td>
+                        <td><img src="@fascia.iconaVentoQuota" alt="Icona Vento Quota" /></td>
+                        <td>@fascia.descVentoIntQuota</td>
+                        <td>@fascia.descVentoDirQuota</td>
+                        <td>@fascia.descVentoIntValle</td>
+                        <td>@fascia.descVentoDirValle</td>
+                        <td>@fascia.zeroTermico</td>
+                        <td>@fascia.limiteNevicate</td>
+                    </tr>
                 }
-            </ul>
-        </div>
+            </table>
+        }
     </div>
     <div class="container">
-        <div class="form-group col-md-offset-3 col-md-5">
+        <div class="form-group">
             <form method="get" asp-controller="Meteo" asp-action="Index">
                 <button type="submit" class="btn btn-success">Torna indietro</button>
             </form>

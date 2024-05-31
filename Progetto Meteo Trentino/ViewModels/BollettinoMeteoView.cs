@@ -1,6 +1,6 @@
 ﻿using Progetto_Meteo_Trentino.Models;
 
-namespace Progetto_Meteo_Trentino.Views.ViewModels
+namespace Progetto_Meteo_Trentino.ViewModels
 {
     public class BollettinoMeteoView
     {

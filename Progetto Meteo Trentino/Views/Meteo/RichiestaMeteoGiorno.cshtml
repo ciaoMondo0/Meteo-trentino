@@ -1,38 +1,62 @@
 ﻿@model Progetto_Meteo_Trentino.Models.RichiestaMeteoGiorno
 
 @{
-    ViewData["Title"] = "RichiestaMeteoGiorno";
+    Layout = null;
 }
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Richiesta meteo giorno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #337ab7;
+            border-color: #2e6da4;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="container">
-            <form method="post" asp-action="RichiestaMeteoGiorno" asp-controller="Meteo">
-                <div class="container">
-                    <div class="form-group col-md-offset-3 col-md-5">
-                        <h2>Cerca la previsione del tempo per una data specifica in una città</h2>
-                        <label for="citta" style="font-family: Arial">Inserisci il nome della citta</label>
-                        <input type="text" id="citta" name="citta" class="form-control" required />
-                        </div>
-                    <div class="form-group col-md-offset-3 col-md-5">
-                        <label for="giorno" style="font-family: Arial">Seleziona la data:</label>
-                        <input type="date" id="giorno" name="giorno" class="form-control" required />
-
-
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="form-group col-md-offset-3 col-md-5">
-                        <button type="submit" class="btn btn-primary">Cerca</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <div class="container">
+        <form method="post" asp-action="RichiestaMeteoGiorno" asp-controller="Meteo">
+            <div class="form-group">
+                <h2>Cerca la previsione del tempo per una data specifica in una città</h2>
+                <label for="citta">Seleziona una città:</label>
+                <select id="citta" name="cittaSelezionata" class="form-control" required>
+                    @foreach (var citta in Model.CittaLista)
+                    {
+                        <option value="@citta">@citta</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="giorno">Seleziona la data:</label>
+                <input type="date" id="giorno" name="giorno" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Cerca</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>

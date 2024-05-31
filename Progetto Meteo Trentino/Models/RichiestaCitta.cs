@@ -2,6 +2,7 @@
 {
     public class RichiestaCitta
     {
-        public string citta { get; set; }
+        public string cittaSelezionata { get; set; }
+        public List<string> CittaLista { get; set; } = new List<string>();
     }
 }
