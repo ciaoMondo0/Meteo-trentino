@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MeteoAPI\MeteoAPI.csproj" />
+    <ProjectReference Include="..\ModelliMeteo\ModelliMeteo.csproj" />
   </ItemGroup>
 
 </Project>

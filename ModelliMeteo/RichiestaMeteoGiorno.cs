@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Progetto_Meteo_Trentino.Models
+namespace ModelliMeteo
 {
     public class RichiestaMeteoGiorno
     {

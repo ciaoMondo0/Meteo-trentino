@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Progetto_Meteo_Trentino.Models;
+using ModelliMeteo;
 using System.Diagnostics;
 
 namespace Progetto_Meteo_Trentino.Controllers
