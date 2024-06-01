@@ -1,5 +1,5 @@
 using SoapCore;
-using Progetto_Meteo_Trentino.Services;
+using MeteoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

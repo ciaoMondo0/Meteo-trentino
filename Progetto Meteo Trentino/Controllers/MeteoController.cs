@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Progetto_Meteo_Trentino.Models;
-using Progetto_Meteo_Trentino.Services;
+using MeteoAPI.Services;
 using Progetto_Meteo_Trentino.ViewModels;
 using System;
 using System.Collections.Generic;

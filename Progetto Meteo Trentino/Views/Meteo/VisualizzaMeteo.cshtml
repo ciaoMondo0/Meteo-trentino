@@ -57,13 +57,13 @@
         <h2>Previsioni meteo per @Model.localita</h2>
         <p>Quota: @Model.quota</p>
         
-        @foreach (var giorno in Model.giorni ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Giorno>())
+        @foreach (var giorno in Model.giorni ?? Enumerable.Empty<ModelliMeteo.Giorno>())
         {
             <h3>Previsioni:</h3>
             <table>
                 <tr>
                     <th>Data</th>
-                    <th>Icona</th>
+                    <th>Tempo</th>
                     <th>Descrizione</th>
                     <th>Temperatura Minima</th>
                     <th>Temperatura Massima</th>
@@ -84,7 +84,7 @@
                     <th>Probabilità Precipitazioni</th>
                     <th>Intensità Precipitazioni</th>
                     <th>Probabilità Temporali</th>
-                    <th>Icona Vento Quota</th>
+                    <th>Vento Quota</th>
                     <th>Intensità Vento in Quota</th>
                     <th>Direzione Vento in Quota</th>
                     <th>Intensità Vento in Valle</th>
@@ -93,7 +93,7 @@
                     <th>Limite Nevicate</th>
                 </tr>
 
-                @foreach (var fascia in giorno.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
+                @foreach (var fascia in giorno.fasce ?? Enumerable.Empty<ModelliMeteo.Fasce>())
                 {
                     <tr>
                         <td>@fascia.fasciaPer</td>

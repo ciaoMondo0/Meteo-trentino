@@ -1,4 +1,4 @@
-﻿using Progetto_Meteo_Trentino.Models;
+﻿using ModelliMeteo;
 
 namespace Progetto_Meteo_Trentino.ViewModels
 {

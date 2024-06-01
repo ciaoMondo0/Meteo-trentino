@@ -1,11 +1,7 @@
-﻿using ModelliMeteo;
-
-
-namespace Progetto_Meteo_Trentino.ViewModels
+﻿namespace Progetto_Meteo_Trentino.Models
 {
-    public class BollettinoMeteoView
+    public class Bollettino
     {
-
         public string fontedacitare { get; set; }
         public string codiceipatitolare { get; set; }
         public string nometitolare { get; set; }
@@ -16,6 +12,5 @@ namespace Progetto_Meteo_Trentino.ViewModels
         public string evoluzione { get; set; }
         public string evoluzioneBreve { get; set; }
         public Previsione[] previsione { get; set; }
-
     }
 }

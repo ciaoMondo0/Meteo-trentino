@@ -72,7 +72,7 @@
                 <th>Probabilità Precipitazioni</th>
                 <th>Intensità Precipitazioni</th>
                 <th>Probabilità Temporali</th>
-                <th>Icona Vento Quota</th>
+                <th>Vento Quota</th>
                 <th>Intensità Vento in Quota</th>
                 <th>Direzione Vento in Quota</th>
                 <th>Intensità Vento in Valle</th>
@@ -81,7 +81,7 @@
                 <th>Limite Nevicate</th>
               
             </tr>
-            @foreach (var fascia in Model.fasce ?? Enumerable.Empty<Progetto_Meteo_Trentino.Models.Fasce>())
+            @foreach (var fascia in Model.fasce ?? Enumerable.Empty<ModelliMeteo.Fasce>())
             {
                 <tr>
                     <td>@fascia.fasciaPer</td>

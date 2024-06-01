@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Progetto_Meteo_Trentino</RootNamespace>
-    <UserSecretsId>51784cdf-1bc8-410c-96ff-37fe7ffc916c</UserSecretsId>
+    <UserSecretsId>f06dc19e-cf1f-40ca-b386-8169d1055c95</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="SoapCore" Version="1.1.0.49" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MeteoAPI\MeteoAPI.csproj" />
+    <ProjectReference Include="..\ModelliMeteo\ModelliMeteo.csproj" />
   </ItemGroup>
 
 </Project>
